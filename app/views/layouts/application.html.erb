@@ -11,6 +11,8 @@
   </head>
 
   <body>
+    <%= "Welcome, #{current_user.full_name}!" if user_signed_in? %>
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete if user_signed_in? %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

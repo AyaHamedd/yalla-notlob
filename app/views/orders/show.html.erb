@@ -1,0 +1,8 @@
+<h1>Order show </h1>
+<%= turbo_stream_from @order %> 
+<div id="items">
+    <%= render @order.items %> 
+</div>
+
+
+<%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %> 
