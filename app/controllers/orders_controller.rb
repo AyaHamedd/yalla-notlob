@@ -5,6 +5,13 @@ class OrdersController < ApplicationController
 
     def show
         @order = Order.find(params[:id])
+        if @order.users_id == current_user.id
+            return @order
+        elsif @order.users.exists?(current_user.id)
+            return @order
+        else
+            render :order_not_found
+        end
     end
 
     def new
@@ -15,5 +22,9 @@ class OrdersController < ApplicationController
 
     def edit
         @order = Order.find(params[:id])
+    end
+
+    def joined_friends
+        render :joined_friends
     end
 end

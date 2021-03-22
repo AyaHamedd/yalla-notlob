@@ -1,0 +1,26 @@
+<%= form_with(model: [@order, @order.items.build], id: dom_id(item), data: {controller: "reset-form", action: "turbo:submit-end->reset-form#reset"}) do |form| %>
+    <div class="field row">
+        <div class="col-md-2">
+            <%= form.label :name, class: "form-label" %> 
+            <%= form.text_field :name, class: "form-control"%> <br>
+            <% item.errors.full_messages_for(:name).each do |message| %> 
+                <p><%= message %> </p>
+            <% end %>
+        </div>
+        <div class="col-md-2">
+            <%= form.label :price, class: "form-label" %>
+            <%= form.text_field :price, class: "form-control" %> <br>
+            <% item.errors.full_messages_for(:price).each do |message| %> 
+                <p><%= message %> </p>
+            <% end %>
+        </div>
+        <div class="col-md-2">
+            <%= form.label :quantity, class: "form-label" %>
+            <%= form.text_field :quantity, class: "form-control" %> <br>
+            <% item.errors.full_messages_for(:quantity).each do |message| %> 
+                <p><%= message %> </p>
+            <% end %>
+        </div>
+    </div>
+    <%= form.submit "Add",class: "btn btn-primary", data: { disable_with: false } %> 
+<% end %>

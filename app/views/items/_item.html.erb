@@ -1,6 +1,7 @@
-<div id="<%= dom_id item %>">
-    <p>Item Name: <%= item.name %></p>
-    <p>Item Price: <%= item.price %></p>
-    <p>Item Quantity: <%= item.quantity %></p>
-    <p>================================</p>
-</div>
+<tr id="<%= dom_id item %>">
+    <th scope="row"><%= item.id %></th>
+    <td><%= item.user.full_name %></td>
+    <td><%= item.name %></td>
+    <td><%= item.price %></td>
+    <td><%= item.quantity %></td>
+</tr>
