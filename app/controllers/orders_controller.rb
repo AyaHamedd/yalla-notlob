@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
 
     def show
         @order = Order.find(params[:id])
-        if @order.users_id == current_user.id
+        if @order.user_id == current_user.id
             return @order
         elsif @order.users.exists?(current_user.id)
             return @order
@@ -25,6 +25,8 @@ class OrdersController < ApplicationController
     end
 
     def joined_friends
+        @order = Order.find(params[:id])
+        @joined = @order.users
         render :joined_friends
     end
 end

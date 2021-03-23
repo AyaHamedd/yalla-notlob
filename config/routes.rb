@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "home#index"
   get "/home", to: "home#index"
   get "/orders/:id/joinedFriends", to: "orders#joined_friends"
+  get "/orders/:order_id/items/:item_id/deleteItem", to: "items#delete_item"
 
   resources :orders do
     resources :items

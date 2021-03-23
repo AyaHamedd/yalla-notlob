@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_230721) do
+ActiveRecord::Schema.define(version: 2021_03_23_221519) do
 
   create_table "friends", id: false, force: :cascade do |t|
     t.integer "friend_id"
@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 2021_03_20_230721) do
     t.string "order_type"
     t.string "status"
     t.string "restaurant_name"
-    t.integer "users_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["users_id"], name: "index_orders_on_users_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "orders_users", id: false, force: :cascade do |t|
@@ -74,5 +74,5 @@ ActiveRecord::Schema.define(version: 2021_03_20_230721) do
   add_foreign_key "friends", "users", column: "users_id"
   add_foreign_key "items", "orders"
   add_foreign_key "items", "users"
-  add_foreign_key "orders", "users", column: "users_id"
+  add_foreign_key "orders", "users"
 end
