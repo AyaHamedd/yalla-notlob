@@ -17,3 +17,18 @@ html,
 body {
   height: 100%;
 }
+
+#dropdownMenu1 {
+  background: none;
+  border: none;
+  color: black;
+}
+
+#dropdownMenu1:hover {
+  color: blue;
+}
+
+#dropdownMenu1:focus {
+  outline: none;
+  box-shadow: none;
+}

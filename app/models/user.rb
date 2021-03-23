@@ -6,4 +6,5 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
   has_and_belongs_to_many :orders
+  has_many :notifications , foreign_key: :recipient_id
 end
