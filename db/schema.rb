@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_221519) do
+ActiveRecord::Schema.define(version: 2021_03_23_231819) do
 
   create_table "friends", id: false, force: :cascade do |t|
     t.integer "friend_id"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 2021_03_23_221519) do
   create_table "groups_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id", null: false
+  end
+
+  create_table "invited_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "order_id", null: false
   end
 
   create_table "items", force: :cascade do |t|
