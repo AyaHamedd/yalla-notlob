@@ -1,0 +1,13 @@
+<% if group.errors.empty? %>
+<div class="alert alert-success" role="alert">
+Group has been added succesfuly 
+      </div>
+<% else %>
+  <%= group.errors.full_messages.each do |message| %>
+ <div class="alert alert-danger" role="alert">
+      <%= message %>
+    </div>
+    <% end %>
+<% end %>
+ 
+      

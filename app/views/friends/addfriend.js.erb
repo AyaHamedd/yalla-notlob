@@ -1,0 +1,3 @@
+$(".user_friends").append("<%= escape_javascript(render :partial => 'friend', :locals => { :friend => @friend }).html_safe %>");
+$(".validation-messages").html("");
+$(".validation-messages").append("<%= escape_javascript(render :partial => 'validate', :locals => { :msg => @msg }).html_safe %>");

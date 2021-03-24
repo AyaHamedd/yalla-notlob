@@ -1,5 +1,6 @@
 class Group < ApplicationRecord
-    validates :name, presence: true
-
-    has_belongs_to_many :groupusers, :through => :groupusers, dependent: :delete_all
+    validates :name, presence: true 
+    belongs_to :user
+  
+    has_and_belongs_to_many :users ,    :through => :groupusers ,dependent: :delete_all
 end
