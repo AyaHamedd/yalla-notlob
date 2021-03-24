@@ -6,9 +6,9 @@ class OrdersController < ApplicationController
     def show
         @order = Order.find(params[:id])
         if @order.user_id == current_user.id
-            return @order
+            render :show
         elsif @order.users.exists?(current_user.id)
-            return @order
+            render :show
         else
             render :order_not_found
         end
@@ -31,7 +31,28 @@ class OrdersController < ApplicationController
             @order.status = "finished"
             @order.save
         end
-        redirect_to orders_path
+
+        respond_to do |format|
+            # format.turbo_stream
+            format.html { redirect_to orders_path }
+        end
+    end
+
+    def cancel_order
+        @order = Order.find(params[:order_id])
+        if @order.status != "finished"
+            @order.status = "cancelled"
+            @order.save
+        end
+
+        respond_to do |format|
+            # format.turbo_stream
+            format.html { redirect_to orders_path }
+        end
+    end
+
+    def closed_order
+        render :closed_order
     end
 
     def joined_friends

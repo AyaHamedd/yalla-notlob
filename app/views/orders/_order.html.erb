@@ -1,0 +1,15 @@
+<tr id="<%= dom_id order %>">
+    <td><%= order.order_type %></td>
+    <td><%= order.restaurant_name %></td>
+    <td><%= order.invited_users.count %></td>
+    <td><%= order.users.count %></td>
+    <td><%= order.status %></td>
+    <td><%= link_to "view", order %>
+        <% if order.status == "waiting" %> 
+            <%= link_to "finish", finish_order_path(order) %>
+            <%= link_to "cancel", cancel_order_path(order) %>
+        <% else %>
+            <td></td>
+        <% end %> 
+    </td>
+</tr>

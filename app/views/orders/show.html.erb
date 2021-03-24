@@ -34,7 +34,9 @@
             </div>
         </div>
     </div>
-        <%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %>
+        <% if @order.status == "waiting" %> 
+            <%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %>
+        <% end %> 
 
         <%= turbo_stream_from @order %>
 
