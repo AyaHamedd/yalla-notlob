@@ -1,0 +1,4 @@
+<h1>New Item</h1>
+<%= turbo_frame_tag "new_item", target: "_top" do %> 
+    <%= render "form", item: @item %> 
+<% end %> 

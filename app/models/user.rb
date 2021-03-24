@@ -8,4 +8,8 @@ class User < ApplicationRecord
   has_many :friend
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  has_many :items
+  has_many :orders
+
+  has_and_belongs_to_many :orders
 end
