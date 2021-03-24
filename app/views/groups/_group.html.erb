@@ -5,9 +5,9 @@
                           <li> <a> <%= group.name %> </a> </li>
                         </ul>
                       </div>
-                      <div class="col-4">
-                        <%# <a href=""><i class="fas fa-user-plus"></i></a> %>
-                        <%= link_to "Add", {:controller => "groups", :action => "groupmember", :id => group.id , remote:true }%>
+                      <div class="col-4 single-group-list">
+                        <%# <a  href=""><i class="fas fa-user-plus"></i></a> %>
+                        <%= link_to "Add", {:controller => "groups", :action => "groupmember", :id => group.id , remote:true  } %>
                       </div>
                       <div class="col-4">
   
