@@ -25,6 +25,15 @@ class OrdersController < ApplicationController
         @order = Order.find(params[:id])
     end
 
+    def finish_order
+        @order = Order.find(params[:order_id])
+        if @order.status != "finished"
+            @order.status = "finished"
+            @order.save
+        end
+        redirect_to orders_path
+    end
+
     def joined_friends
         @order = Order.find(params[:id])
         @joined = @order.users
