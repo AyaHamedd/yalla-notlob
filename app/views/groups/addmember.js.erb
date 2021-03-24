@@ -1,0 +1,3 @@
+$(".partial-group-members").append("<%= escape_javascript(render :partial => 'member', :locals => { :member => @member , :group => @group }).html_safe %>");
+$(".validation-messages").html("");
+$(".validation-messages").append("<%= escape_javascript(render :partial => 'friendValidate', :locals => { :msg => @msg }).html_safe %>");
