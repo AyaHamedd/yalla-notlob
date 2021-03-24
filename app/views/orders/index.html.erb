@@ -22,7 +22,7 @@
                     <td><%= order.invited_users.count %></td>
                     <td><%= order.users.count %></td>
                     <td><%= order.status %></td>
-                    <td><%= link_to "view", order %></td>
+                    <td><%= link_to "view", order %><%= link_to "finish", finish_order_path(order) %></td>
                 </tr>
             <% end %> 
         </tbody>
