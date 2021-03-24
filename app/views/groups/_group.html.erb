@@ -1,0 +1,21 @@
+ <% if group.errors.empty? %>
+  <div class="row">
+                        <div class="col-4">
+                        <ul>
+                          <li> <a> <%= group.name %> </a> </li>
+                        </ul>
+                      </div>
+                      <div class="col-4">
+                        <%# <a href=""><i class="fas fa-user-plus"></i></a> %>
+                        <%= link_to "Add", {:controller => "groups", :action => "groupmember", :id => group.id , remote:true }%>
+                      </div>
+                      <div class="col-4">
+  
+      <%= link_to 'Destroy', group,
+              method: :delete,
+              data: { confirm: 'Are you sure?' } ,:remote => true ,:class => "delete_group" %>
+                      </div>
+                      </div>
+<% end %>
+ 
+                      
