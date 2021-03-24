@@ -9,14 +9,14 @@
         </div>
         <div class="col-md-2">
             <%= form.label :price, class: "form-label" %>
-            <%= form.text_field :price, class: "form-control" %> <br>
+            <%= form.number_field :price, in: 1.0..1000.0, step: 0.5, class: "form-control" %> <br>
             <% item.errors.full_messages_for(:price).each do |message| %> 
                 <p><%= message %> </p>
             <% end %>
         </div>
         <div class="col-md-2">
             <%= form.label :quantity, class: "form-label" %>
-            <%= form.text_field :quantity, class: "form-control" %> <br>
+            <%= form.number_field :quantity, in: 1.0..100.0, step: 1, class: "form-control" %> <br>
             <% item.errors.full_messages_for(:quantity).each do |message| %> 
                 <p><%= message %> </p>
             <% end %>

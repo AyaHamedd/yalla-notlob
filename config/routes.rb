@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get "/orders/:id/joinedFriends", to: "orders#joined_friends", as: 'joined_friends'
   get "/orders/:order_id/items/:item_id/deleteItem", to: "items#delete_item", as: 'delete_item'
   get "/orders/:order_id/finish", to: "orders#finish_order", as: 'finish_order'
+  get "/orders/:order_id/cancel", to: "orders#cancel_order", as: 'cancel_order'
+  get "/orders/closed_order", to: "orders#closed_order", as: 'closed_order'
 
   resources :orders do
     resources :items

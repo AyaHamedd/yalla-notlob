@@ -5,16 +5,22 @@ class ItemsController < ApplicationController
     end
 
     def create
-        @item = @order.items.create(item_params)
+        @order = Order.find(params[:order_id])
+        if @order.status == "finished" or @order.status == "cancelled"
+            puts "yes"
+            redirect_to "/orders/closed_order"
+        else
+            @item = @order.items.create(item_params)
 
-        respond_to do |format|
-            if @item.id == nil
-                format.turbo_stream { render turbo_stream: turbo_stream.replace(@item, partial: "items/form", locals: { item: @item}) }
-                format.html { render :new }
-                format.json { render json: @item.errors, status: unprocessable_entity }
-            else
-                # format.turbo_stream
-                format.html { redirect_to @order }
+            respond_to do |format|
+                if @item.id == nil
+                    format.turbo_stream { render turbo_stream: turbo_stream.replace(@item, partial: "items/form", locals: { item: @item}) }
+                    format.html { render :new }
+                    format.json { render json: @item.errors, status: unprocessable_entity }
+                else
+                    # format.turbo_stream
+                    format.html { redirect_to @order }
+                end
             end
         end
     end
