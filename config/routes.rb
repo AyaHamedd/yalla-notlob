@@ -12,5 +12,8 @@ get '/addGroupMember', :controller => 'groups', :action => 'groupmember'
 post '/addMember' , :controller =>'groups' , :action =>'addmember'
 resources :groups
 resources :friends
-
+delete 'removemember/:id(.:format)', :to => 'groups#removemember'
+delete '/addFriend' , :to => 'friends#destroy'
+get '/addFriend' , :controller => 'friends', :action => 'add'
+post '/addFriend' , :controller =>'friends' , :action =>'addfriend'
 end
