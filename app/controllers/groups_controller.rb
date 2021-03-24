@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
   def add
     @user = User.find(current_user.id)
     @groups = @user.groups
-    # render :text => @groups.inspect
+    
   end
 
   def destroy 
@@ -29,9 +29,9 @@ class GroupsController < ApplicationController
       
       format.html { redirect_to @group, notice: 'group was successfully created.' }
    
-      # format.json { head :no_content }
+      
       format.js
-      # end
+    
     else
       
     end
@@ -43,8 +43,7 @@ end
 
  
  def removemember
-  # @groupUser = GroupsUser.where( user_id: params[:id] ,group_id: params[:group]).first
-  # @groupUser.destroy
+ 
   GroupsUser.delete_by(user_id: params[:id] ,group_id: params[:group])
   respond_to do |format|
      format.html { redirect_to group_delete_url }
@@ -58,7 +57,7 @@ end
  def groupmember
   @group = Group.find(params[:id])
   respond_to do |format|
-    # format.html { redirect_to group_delete_url }
+  
     format.json { head :no_content }
    format.js
   end
@@ -93,7 +92,7 @@ end
  end
  
  def group_params
-    # params.require(:group).permit(:name, :users_id)
+   
      params.require(:group).permit(:name, :user_id)
  end
 
