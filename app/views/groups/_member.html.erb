@@ -3,7 +3,7 @@
 
                           <div class="span4">
                             <div class="content-heading">
-                              <h3> <%= member.full_name %> </h3>
+                              <h3> <%= member.email %> </h3>
                             </div>
                             <%= link_to 'remove', 
       { :controller => 'groups', :action => 'removemember', :id => member.id  , :group => group}, 
