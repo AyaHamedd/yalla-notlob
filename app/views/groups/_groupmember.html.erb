@@ -1,34 +1,28 @@
 <fieldset style="max-width: 100%;" class="col-md-6">
-
-                  <legend> <%= group.name %> </legend>
-
-                  <div class="panel panel-default">
-                    <div class="panel-container panel-body">
-
-                      <div class="row">
-                        <div class="col-4">
-                          <label style="max-width: fit-content; color: aliceblue;" for="example-text-input" class="col-2 col-form-label">
-                            Friend Name</label>
-                        </div>
-                        <div class="col-8">
-                        <%= form_with url: "/addMember", scope: :friend ,local: false do |form| %>
-                          <%= form.hidden_field :user_id, value: current_user.id %>
-                          <%= form.hidden_field :group_id, value: group.id %>
-                          <%= form.text_field :name  , :class => "form-control" ,:placeholder =>'Friend Name' %>        
-                          <div class="input-group-append">
-                            <%= form.submit 'Add' , :class => "btn btn-outline-secondary" %>
-                            </div>
-                          <% end %>
-                        </div>
-                      </div>
-                      <div class="row partial-group-members">
-                   
-                            <%= render partial: "member", collection: @group.users , :as => :member , :locals => {:group => @group.id} %>
-                      
-                       
-                      </div>
-
+    <legend>
+        <%= group.name %>
+    </legend>
+    <div class="panel panel-default">
+        <div class="panel-container panel-body">
+            <div class="row justify-content-center">
+                <div
+                    class=""><%# <label style="max-width: fit-content; color: aliceblue;" for="example-text-input" class="col-2 col-form-label"> Friend Name</label> %>
+                </div>
+                <%= form_with url: "/addMember", scope: :friend ,local: false do |form| %>
+                    <div class="col-lg-6">
+                        <%= form.hidden_field :user_id, value: current_user.id %>
+                        <%= form.hidden_field :group_id, value: group.id %>
+                        <%= form.text_field :name  , :class => "form-control" ,:placeholder =>'Friend Name' %>
                     </div>
-                  </div>
+                    <div class="input-group-append col-lg-2">
+                        <%= form.submit 'Add' , :class => "btn btn-outline-secondary" %>
+                    </div>
+                <% end %>
+            </div>
+            <div class="row partial-group-members">
+                <%= render partial: "member", collection: @group.users , :as => :member , :locals => {:group => @group.id} %>
+            </div>
+        </div>
+    </div>
 
-                </fieldset>
+</fieldset>

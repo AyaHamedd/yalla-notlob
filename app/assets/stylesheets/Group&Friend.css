@@ -1,27 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Kalam|Lato');
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family: 'Lato', sans-serif;
-background-image: url('groups.jpg');
- 
-}
-
+ @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Trade+Winds&display=swap");
 
 h1{
   text-align:center;
-  font-family: 'Kalam', cursive;
   color:rgba(16, 16, 61, 0.767);
-  
 }
-
-
-
 
 .btn{
   background-color: rgba(16, 16, 61, 0.767);
@@ -45,15 +27,10 @@ h1{
   font-size: 20px;
   border-radius:20px;
   width: 50%;
- 
-
 }
 
-
 .col-form-label{
-  font-family: 'Kalam', cursive;
   color:rgba(16, 16, 61, 0.767);
-
 }
 
 
@@ -62,7 +39,6 @@ h1{
   color:  rgba(16, 16, 61, 0.767);
   font-weight: bold;
   font-size: 20px;
-
 }
 
 
@@ -80,14 +56,12 @@ padding-left:10px!important;
 
 legend
 { 
-
   background-color:rgba(5, 47, 71, 0.349);
   color:  rgba(16, 16, 61, 0.767);
   font-size:14px;
   font-weight:bold;
   margin-bottom: 0px; 
   width: 50%; 
- 
   border-radius: 4px; 
   padding: 5px 5px 5px 10px; 
 }
@@ -105,11 +79,10 @@ text-decoration: none;
 font-size: 20px;
 font-weight: bold;
 }
+
 .panel-container ul {
 list-style-type: none;
 }
-
-
 
 .delete_group , .delete_member_group ,.custom-delete-friend{
   background-color:#990f0a;
@@ -127,15 +100,13 @@ list-style-type: none;
 
 }
 
-
-
 .single-group-list a:hover{
   background-color:whitesmoke;
   color: rgba(8, 92, 8, 0.589);
   border: 5px solid rgba(8, 92, 8, 0.589)!important;
   text-decoration:none;
-
 }
+
 .single-group-list a {
   background-color:rgba(8, 92, 8, 0.589);
   padding:8px 8px; 
@@ -143,8 +114,6 @@ list-style-type: none;
   color:whitesmoke;
   border-radius: 30px; 
   text-decoration:none;
-
-
 }
 
 

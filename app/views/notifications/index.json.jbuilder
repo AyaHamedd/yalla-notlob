@@ -3,7 +3,7 @@ json.newNotifications(@notifications) do |notification|
     json.actor notification.actor.full_name
     if notification.action=="joined"
         json.text "joined your #{notification.order.order_type}"
-        json.link "Order."
+        json.link "Order"
     else
         json.text "invited you to his/her order"
         json.link "Join"
@@ -17,7 +17,7 @@ json.allNotifications(@allNotifications) do |notification|
     json.actor notification.actor.full_name
     if notification.action=="joined"
         json.text "joined your #{notification.order.order_type}"
-        json.link "Order."
+        json.link "Order"
     else
         json.text "invited you to his/her order"
         json.link "Join"

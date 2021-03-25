@@ -1,73 +1,50 @@
-
-<div class="group-content">
-      <div class="container">
-        <br><br>
-        <div class="row">
-          <div class="col-12">
-            <h1>Groups</h1>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-
-          <div class="col-2">
-            <label style="font-size: 23px;font-weight: bold;" for="example-text-input" class="col-2 col-form-label">Group:</label>
-          </div>
-
-          <div class="col-10">
-            <div class="input-group mb-3">
-
-            <%= form_with scope: :group , local: false do |form| %>
-           
-          
-            <%= form.hidden_field :user_id, value: current_user.id %>
-                <%= form.text_field :name  , :class => "form-control" ,:placeholder =>'Group Name' %>        
-              <div class="input-group-append">
-                <%= form.submit 'Add' , :class => "btn btn-outline-secondary" %>
-                </div>
-            <% end %>
-            </div>
-          </div>
-        </div>
-        <br><br>
-        <div>
-        <div class="validation-messages">
-      
-      </div>
-        </div>
-        <div class="row">
-          <div class="col-5">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <fieldset style="max-width: 100%; margin-bottom: 50px;" class="col-md-6">
-
-                  <legend>My Groups</legend>
-
-                  <div class="panel panel-default">
-                    <div class="panel-container panel-body user_groups"  style="overflow-y: scroll;overflow-x: hidden; max-height: 240px;">
-                      <% !@groups.empty? %>
-                    
-                    <%= render @groups %>
-                  </div>
-
-                </fieldset>
-
-                <div class="clearfix"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-7">
-
-            <div class="panel panel-default">
-              <div class="panel-body custom_group_members">
-                    
-                <div class="clearfix"></div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
+<div class="container flex-grow-1">
+    <div class="mt-0">
+        <h1 class="text-center fw-bold">Groups</h1>
     </div>
-
-  </div>
+    <div class="container-fluid justify-content-center">
+        <div class="row mt-5">
+            <div class="col-lg-2">
+                <label style="font-size: 23px; font-weight: bold" for="example-text-input" class="col-2 col-form-label">Group:</label>
+            </div>
+            <div class="col-lg-4">
+                <div class="mb-3">
+                    <%= form_with scope: :group , local: false do |form| %>
+                        <%=
+          form.hidden_field :user_id, value: current_user.id %>
+                        <%=
+          form.text_field :name, :class=> "form-control", :placeholder =>'Group Name' %>
+                        <div class="input-group-append">
+                            <%= form.submit 'Add' , :class=> "btn btn-outline-secondary" %>
+                        </div>
+                    <% end %>
+                    <div class="validation-messages mt-2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-5">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <fieldset style="max-width: 100%; margin-bottom: 50px;" class="col-lg-7">
+                            <legend>My Groups</legend>
+                            <div class="panel panel-default">
+                                <div class="panel-container panel-body user_groups" style="overflow-y: scroll;overflow-x: hidden; max-height: 240px;">
+                                    <% !@groups.empty? %>
+                                    <%= render @groups %>
+                                </div>
+                            </fieldset>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="panel panel-default">
+                        <div class="panel-body custom_group_members">
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

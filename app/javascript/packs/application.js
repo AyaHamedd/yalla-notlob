@@ -5,19 +5,20 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap
 //= require_tree .
+//= require jquery.turbolinks
 
 import "@hotwired/turbo-rails";
 import * as ActiveStorage from "@rails/activestorage";
 import Rails from "@rails/ujs";
-import "bootstrap";
+// import "bootstrap";
 import "channels";
 import "controllers";
-require("jquery");
 
 Rails.start();
 ActiveStorage.start();
+
+
 
 class Notifications {
   constructor() {
@@ -26,11 +27,13 @@ class Notifications {
     this.notifications = $("[data-behavior='notifications']");
     this.unread_count = 0;
     this.firstFetch = 1;
-    $("#view-all").click(function () {
+    
+    
+    $("#view-all").on( "click",function () {
       $(".popup").show();
     });
-
-    $("#close, .shadow").click(function () {
+    
+    $("#close, .shadow").on( "click",function () {
       $(".popup").hide();
     });
 
@@ -91,7 +94,7 @@ class Notifications {
     if (data["allNotifications"].length > 0 && this.firstFetch) {
       data["allNotifications"].forEach(function (notification) {
         $("#all-notify").prepend(
-          `<li> ${notification.actor} ${notification.text} <a href='${notification.url}'>${notification.link}</a></li>`
+          `<li> ${notification.actor} ${notification.text}<a href='${notification.url}'>${notification.link}</a></li>`
         );
       });
     }
@@ -99,4 +102,28 @@ class Notifications {
   }
 }
 
-jQuery(() => new Notifications());
+$(document).ready(function(){
+  $("#view-all").on( "click",function () {
+    $(".popup").show();
+  });
+  
+  $("#close, .shadow").on( "click",function () {
+    $(".popup").hide();
+  });
+  new Notifications();
+}
+);
+
+// $(document).on("turbolinks:change", function () {
+//   $("#view-all").on( "click",function () {
+//     console.log("ff");
+//     $(".popup").show();
+//   });
+// });
+
+// document.addEventListener('turbolinks:load', function () {
+//   const viewAll = document.getElementById('view-all');
+//   viewAll.addEventListener('click', function () {
+//     return $(".popup").show();
+//   }, false);
+// });
