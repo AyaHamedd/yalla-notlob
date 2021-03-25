@@ -1,1 +1,10 @@
-<h1>New Order</h1>
+<div class="container flex-grow-1">
+    <div class="mt-0">
+        <h1 class="text-center fw-bold">New Order</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <%= render "order_form", order: @order %> 
+        </div>
+    </div>
+</div>
