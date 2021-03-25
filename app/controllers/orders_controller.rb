@@ -60,4 +60,10 @@ class OrdersController < ApplicationController
         @joined = @order.users
         render :joined_friends
     end
+
+    def invited_friends
+        @order = Order.find(params[:id])
+        @invited = @order.invited_users
+        render :invited_friends
+    end
 end
