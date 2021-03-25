@@ -1,0 +1,16 @@
+<% if !friend.nil? %>
+<div class="single-friend col-md-12">
+               
+                <p style="color:#000;display:inline-block"> <%= friend.users.email %> </p> 
+
+
+           
+                
+
+                <%= link_to "Delete", {:friend_id => friend.friend_id}, :method => :delete,remote: true, :data => {:confirm => "Are You Sure?"}, :style =>"padding-left:5px;" ,:class=>'custom-delete-friend' %> 
+
+
+
+            
+               </div>
+<% end %>

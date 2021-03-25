@@ -2,8 +2,12 @@
     <div class="mt-0">
         <h1 class="text-center fw-bold">Order Details</h1>
     </div>
-    <%= turbo_stream_from @order %>
     <div class="container-fluid">
+        <div class="">
+            <h3 class="">Order created by 
+                <%= @order.user.full_name %> 
+            </h3>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <table class="table table-striped table-hover">
@@ -14,20 +18,24 @@
                         <th scope="col">Item Name</th>
                         <th scope="col">Item Price</th>
                         <th scope="col">Item Quantity</th>
+                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody id="items">
-                        <%= render @order.items, @count %>
+                        <%= render @order.items %>
                     </tbody>
                 </table>
             </div>
             <div class="col-md-6 d-flex justify-content-center align-items-center">
                 <%= turbo_frame_tag "joined_friends" do %>
-                    <%= link_to "View friends who are joining", "#{@order.id}/joinedFriends" %>
+                    <%= link_to "View friends who are joining", joined_friends_path(@order) %>
                     <!-- <%= link_to "View friends who are joining", "joinedFriends" %> -->
                 <% end %> 
             </div>
         </div>
     </div>
-    <%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %>
+        <%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %>
+
+        <%= turbo_stream_from @order %>
+
 </div>

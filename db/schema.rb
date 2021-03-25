@@ -24,11 +24,18 @@ ActiveRecord::Schema.define(version: 2021_03_24_203807) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
   create_table "groups_users", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id", null: false
+  end
+
+  create_table "invited_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "order_id", null: false
   end
 
   create_table "items", force: :cascade do |t|
@@ -58,10 +65,10 @@ ActiveRecord::Schema.define(version: 2021_03_24_203807) do
     t.string "order_type"
     t.string "status"
     t.string "restaurant_name"
-    t.integer "users_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["users_id"], name: "index_orders_on_users_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "orders_users", id: false, force: :cascade do |t|
@@ -97,7 +104,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_203807) do
   end
 
   add_foreign_key "friends", "users", column: "users_id"
+  add_foreign_key "groups", "users"
   add_foreign_key "items", "orders"
   add_foreign_key "items", "users"
-  add_foreign_key "orders", "users", column: "users_id"
+  add_foreign_key "orders", "users"
 end
