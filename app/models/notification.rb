@@ -4,4 +4,5 @@ class Notification < ApplicationRecord
     belongs_to :order, class_name: "Order"
 
     scope :unread, -> { where(read_at: nil) }
+    scope :unrecieved , -> {where(recieved: false)}
 end

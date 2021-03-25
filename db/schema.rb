@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_192520) do
+ActiveRecord::Schema.define(version: 2021_03_24_203807) do
 
   create_table "friends", id: false, force: :cascade do |t|
     t.integer "friend_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_03_22_192520) do
     t.integer "order_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "recieved", default: false
   end
 
   create_table "orders", force: :cascade do |t|

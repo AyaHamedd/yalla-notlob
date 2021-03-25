@@ -8,61 +8,93 @@
 //= require bootstrap
 //= require_tree .
 
-import "@hotwired/turbo-rails"
-import * as ActiveStorage from "@rails/activestorage"
-import Rails from "@rails/ujs"
-import "channels"
-import "controllers"
+import "@hotwired/turbo-rails";
+import * as ActiveStorage from "@rails/activestorage";
+import Rails from "@rails/ujs";
+import "channels";
+import "controllers";
 
-Rails.start()
-ActiveStorage.start()
+Rails.start();
+ActiveStorage.start();
 
 class Notifications {
-    constructor() {
-      this.handleClick = this.handleClick.bind(this);
-      this.handleSuccess = this.handleSuccess.bind(this);
-      this.notifications = $("[data-behavior='notifications']");
-  
-      if (this.notifications.length > 0) {
-        this.handleSuccess(this.notifications.data("notifications"));
-        $("[data-behavior='notifications-link']").on("click", this.handleClick);
-        setInterval((() => {
-          return this.getNewNotifications();
+  constructor() {
+    this.handleClick = this.handleClick.bind(this);
+    this.handleSuccess = this.handleSuccess.bind(this);
+    this.notifications = $("[data-behavior='notifications']");
+    this.unread_count = 0;
+    this.firstFetch = 1;
+    $("#view-all").click(function () {
+      $(".popup").show();
+    });
+
+    $("#close, .shadow").click(function () {
+      $(".popup").hide();
+    });
+
+    if (this.notifications.length > 0) {
+      $("[data-behavior='notifications-link']").on("click", this.handleClick);
+      this.getNewNotifications();
+      setInterval(() => {
+        return this.getNewNotifications();
+      }, 5000);
+    }
+  }
+
+  getNewNotifications() {
+    $.ajax({
+      url: "/notifications.json",
+      dataType: "JSON",
+      method: "GET",
+      success: this.handleSuccess,
+    });
+  }
+
+  handleClick(e) {
+    this.unread_count = 0;
+    $.ajax({
+      url: "/notifications/mark_as_read",
+      dataType: "JSON",
+      method: "POST",
+      success() {
+        $("#unread-count").text(" ");
+      },
+    });
+  }
+
+  handleSuccess(data) {
+    let count = this.unread_count;
+    if (data["newNotifications"].length > 0) {
+      data["newNotifications"].forEach(function (notification) {
+        $("#notify").prepend(
+          `<li class='dropdown-item'> ${notification.actor} ${notification.text} <a href='${notification.url}'>${notification.link}</a></li>`
+        );
+        if ($("#all-notify li").length) {
+          $("#all-notify").prepend(
+            `<li> ${notification.actor} ${notification.text} <a href='${notification.url}'>${notification.link}</a></li>`
+          );
         }
-        ), 5000);
-      }
+        count += 1;
+      });
+      this.unread_count = count;
+      $("#unread-count").text(this.unread_count);
+
+      $.ajax({
+        url: "/notifications/mark_as_recieved",
+        dataType: "JSON",
+        method: "POST",
+      });
     }
 
-    getNewNotifications() {
-        return $.ajax({
-          url: "/notifications.json",
-          dataType: "JSON",
-          method: "GET",
-          success: this.handleSuccess
-        });
+    if (data["allNotifications"].length > 0 && this.firstFetch) {
+      data["allNotifications"].forEach(function (notification) {
+        $("#all-notify").prepend(
+          `<li> ${notification.actor} ${notification.text} <a href='${notification.url}'>${notification.link}</a></li>`
+        );
+      });
     }
-
-    handleClick(e) {
-        return $.ajax({
-          url: "/notifications/mark_as_read",
-          dataType: "JSON",
-          method: "POST",
-          success() {
-            return $("[data-behavior='unread-count']").text(0);
-          }
-        });
-    }
-
-    handleSuccess(data) {
-        let unread_count = 0;
-        $("#notify").empty();
-        data.forEach(function(notification) {
-            $("#notify").append(`<li class='dropdown-item' href='${notification.url}'> ${notification.actor}</li>`);
-            if (notification.unread) {
-                unread_count += 1;
-            }});
-        $("#unread-count").text(unread_count);
-    }
+    this.firstFetch = 0;
+  }
 }
-	
-jQuery(() => new Notifications);
+
+jQuery(() => new Notifications());
