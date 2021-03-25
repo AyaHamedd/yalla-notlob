@@ -1,0 +1,16 @@
+<%= form_with(model: order, id: dom_id(order)) do |form| %>
+    <div class="field row justify-content-center mt-5">
+        <div class="col-md-4">
+            <%= form.label :order_type, class: "form-label" %>
+            <%= form.text_field :order_type, class: "form-control"%> <br>
+            <% order.errors.full_messages_for(:order_type).each do |message| %>
+                <p><%= message %> </p>
+            <% end %>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-2">
+            <%= form.submit "Add",class: "btn btn-primary", data: { disable_with: false } %>
+        </div>
+    </div>
+<% end %>

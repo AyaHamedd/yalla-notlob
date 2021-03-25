@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
     end
 
     def new
-        render :new
+        @order = Order.new
     end
 
     def create
