@@ -28,7 +28,7 @@ class FriendsController < ApplicationController
                 end 
                
             else
-                @msg ='we canot found friend with this email'    
+                @msg ='we could not find friend with this email'    
             end
         end
 
