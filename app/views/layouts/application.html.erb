@@ -17,41 +17,79 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
-
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     </head>
 
-  <body>
-    <div class="layout d-flex flex-column h-100">
-      <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <!-- <a class="navbar-brand" href="#">Yalla Notlob</a> -->
-              <%= link_to "Yalla Notlob", root_path, class: "navbar-brand" %> 
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav w-100 mb-2 mb-lg-0">
-                  <li class="nav-item mt-2">
-                    <%= link_to "Home", root_path, class: "nav-link" %>
-                  </li>
-                  <li class="nav-item mt-2">
-                    <%= link_to "Friends", friends_path, class: "nav-link" %>
-                  </li>
-                  <li class="nav-item mt-2">
-                    <%= link_to "Groups", groups_path, class: "nav-link" %>
-                  </li>
-                  <li class="nav-item mt-2 me-auto">
-                    <%= link_to "Orders", orders_path, class: "nav-link" %>
-                  </li>
-                  <li class="nav-item">
-                      <%= "Welcome, #{current_user.full_name}!" if user_signed_in? %>
-                      <%= link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete if user_signed_in? %>
-                  </li>
-                </ul>
-              </div>
+    <body>
+        <div class="layout d-flex flex-column h-100">
+            <div class="container-fluid p-0">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand .align-middle" href="/">
+                            <img src="assets/logo.png" width="40" height="40" alt="">Yalla Notlob</a>
+                        <%# <%= link_to "Yalla Notlob", root_path, class: "navbar-brand" %>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav w-100">
+                                <li class="nav-item mt-1">
+                                    <%= link_to "Home", root_path, class: "nav-link" %>
+                                </li>
+                                <li class="nav-item mt-1">
+                                    <%= link_to "Friends", friends_path, class: "nav-link" %>
+                                </li>
+                                <li class="nav-item mt-1">
+                                    <%= link_to "Groups", groups_path, class: "nav-link" %>
+                                </li>
+                                <li class="nav-item mt-1 me-auto">
+                                    <%= link_to "Orders", orders_path, class: "nav-link" %>
+                                </li>
+                                <% if user_signed_in? %>
+                                    <li class="nav-item btn-group mt-1" data-behavior="notifications" data-notifications='<%= render template: "notifications/index", formats: [:json] %>'>
+                                        <button class="btn btn-secondary " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-behavior="notifications-link">
+
+                                            <span id="unread-count"></span>
+                                            <i class="fa fa-bell"></i>
+                                        </button>
+                                        <div
+                                            id="notify" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
+                                            <%# <a class="dropdown-item" href="#">Action</a>%>
+                                            <div class="dropdown-divider"></div>
+                                            <button id="view-all" class="dropdown-item">View All Notifications</button>
+                                        </div>
+                                        <%# <li class='dropdown-item' href='#'> View All Notifications</li> %>
+                                    </li>
+                                    <li
+                                        class="nav-item mt-1">
+                                        <%# <%= current_user.full_name%>
+                                        <a class="nav-link" href="#">Username</a>
+                                    </li>
+                                <% end %>
+                                <li class="nav-item mt-1">
+                                    <%= link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete if user_signed_in? %>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="popup">
+                <div class="shadow"></div>
+                <div class="inner_popup">
+                    <div class="notification_dd">
+                        <ul class="notification_ul">
+                            <li class="title">
+                                <p>All Notifications</p>
+                                <p id="close">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </p>
+                            </li>
+                            <div id="all-notify"></div>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <p class="notice"><%= notice %></p>
             <p class="alert"><%= alert %></p>
