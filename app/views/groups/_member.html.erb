@@ -1,17 +1,14 @@
 <% if !member.nil? %>
     <div class="col-6 member_group">
-
         <div class="span4">
-            <div class="content-heading mt-5">
+            <div class="content-heading  mt-5">
                 <h4>
-                    <%= member.full_name %>
+                    <%= member.email %>
                 </h4>
             </div>
             <%= link_to 'remove', 
-{ :controller => 'groups', :action => 'removemember', :id => member.id  , :group => group}, 
-{ :confirm => 'Are you sure?', :method => :delete, :remote => true ,:class => "delete_member_group"}  %>
-
+      { :controller => 'groups', :action => 'removemember', :id => member.id  , :group => group}, 
+      { :confirm => 'Are you sure?', :method => :delete, :remote => true ,:class => "delete_member_group"}  %>
         </div>
-
     </div>
-<% end %>
+</div><% end %>

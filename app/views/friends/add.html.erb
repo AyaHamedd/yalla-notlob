@@ -2,31 +2,31 @@
     <div class="mt-0">
         <h1 class="text-center fw-bold">Friends</h1>
     </div>
-    <div class="container-fluid">
-        <div class="row mt-5">
-            <div class="col-md-2">
-                <label style="color: rgba(16, 16, 61, 0.767); font-size: 23px; width: 250px; font-weight: bold;" for="example-text-input" class="col-form-label">Friend Email:</label>
-            </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    <%= form_with url: "/addFriend" , scope: :friend , local: false do |form| %>
-                        <%= form.hidden_field :user_id, value: current_user.id %>
-                        <%= form.text_field:email,:class=>"form-control",:placeholder=>'Email' %>
-                        <div class="input-group-append">
-                            <%= form.submit 'Add' , :class=> "btn btn-outline-secondary but" %>
-                        </div>
-                    <% end %>
-                    <div class="validation-messages mt-2"></div>
-                </div>
+</div>
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-md-2">
+            <label style="color: rgba(16, 16, 61, 0.767);font-size: 23px;width:250px; font-weight: bold;" for="example-text-input" class="col-2 col-form-label">Friend Email:</label>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <%= form_with url: "/addFriend", scope: :friend  , local: false  do |form| %>
+                    <%= form.hidden_field :user_id, value: current_user.id %>
+                    <%= form.text_field :email  , :class => "form-control custom-input" ,:placeholder =>'Email' %>
+                    <div class="input-group-append">
+                        <%= form.submit 'Add' , :class => "btn btn-outline-secondary but" %>
+                    </div>
+                <% end %>
+                <div class="validation-messages"></div>
             </div>
         </div>
-        <div class="row mt-5">
-            <h1>Friends list</h1>
-            <div class="col-md-6">
-                <div class="frlist user_friends row">
-                    <% !@friends.empty? %>
-                    <%= render @friends %>
-                </div>
+    </div>
+    <div class="row mt-5">
+        <h1>Friends list</h1>
+        <div class="col-md-6">
+            <div class="frlist user_friends row">
+                <% !@friends.empty? %>
+                <%= render @friends %>
             </div>
         </div>
     </div>

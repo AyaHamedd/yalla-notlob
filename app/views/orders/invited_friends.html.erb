@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "invited_friends" do %>
+    <h3>Invited friends</h3>
+    <ul class="list-group">
+        <% @invited.each do |friend| %>
+            <% if friend.id != current_user.id %>
+                <p class="list-group-item"><%= friend.full_name %></p>
+            <% end %>
+        <% end %>
+    </ul>
+    <%= link_to "back", order_path , "data-turbo-frame": "_top" %>
+<% end %>

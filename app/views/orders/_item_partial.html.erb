@@ -1,0 +1,4 @@
+<%= turbo_stream_from "item_partial" %>
+<% if @order.status == "waiting" %> 
+    <%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %>
+<% end %> 

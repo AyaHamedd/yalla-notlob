@@ -5,15 +5,14 @@
     <div class="panel panel-default">
         <div class="panel-container panel-body">
             <div class="row justify-content-center">
-                <div
-                    class=""><%# <label style="max-width: fit-content; color: aliceblue;" for="example-text-input" class="col-2 col-form-label"> Friend Name</label> %>
+                <div class="">
+                    <label style="max-width: fit-content; color: #000;" for="example-text-input" class="col-2 col-form-label">
+                        Friend Email</label>
                 </div>
                 <%= form_with url: "/addMember", scope: :friend ,local: false do |form| %>
-                    <div class="col-lg-6">
-                        <%= form.hidden_field :user_id, value: current_user.id %>
-                        <%= form.hidden_field :group_id, value: group.id %>
-                        <%= form.text_field :name  , :class => "form-control" ,:placeholder =>'Friend Name' %>
-                    </div>
+                    <%= form.hidden_field :user_id, value: current_user.id %>
+                    <%= form.hidden_field :group_id, value: group.id %>
+                    <%= form.text_field :email  , :class => "form-control" ,:placeholder =>'Friend Email' %>
                     <div class="input-group-append col-lg-2">
                         <%= form.submit 'Add' , :class => "btn btn-outline-secondary" %>
                     </div>
@@ -24,5 +23,4 @@
             </div>
         </div>
     </div>
-
 </fieldset>

@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   def index
+    redirect_to '/addGroup'
   end
 
   def add
@@ -65,11 +66,11 @@ end
 
  def addmember
   @msg ='';
-  name = friend_params[:name ]
-  if name.empty? 
-      @msg = "friend name can not be empty" 
+  email = friend_params[:email ]
+  if email.empty? 
+      @msg = "friend email can not be empty" 
   else
-    if friend = User.where(:full_name => friend_params[:name ]).first
+    if friend = User.where(:email => friend_params[:email ]).first
       if relation = Friend.where(:users_id => friend_params[:user_id]).where(:friend_id => friend[:id]).first
         @groupUser = GroupsUser.new({"user_id"=> friend.id ,"group_id"=> friend_params[:group_id ] })
         if  @groupUser.save
@@ -85,7 +86,7 @@ end
         @msg ="you dont have this friend"
       end
     else
-      @msg ='we canot found friend with this name'    
+      @msg ='we could not find  friend with this email'    
      end
   end
 
@@ -97,7 +98,7 @@ end
  end
 
  def friend_params
-   params.require(:friend).permit(:name , :user_id ,:group_id)
+   params.require(:friend).permit(:email , :user_id ,:group_id)
  end
 
 end

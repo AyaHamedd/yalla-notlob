@@ -26,15 +26,21 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
                 <%= turbo_frame_tag "joined_friends" do %>
                     <%= link_to "View friends who are joining", joined_friends_path(@order) %>
-                    <!-- <%= link_to "View friends who are joining", "joinedFriends" %> -->
-                <% end %> 
+                <% end %>
+            </div>
+            <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center">
+                <%= turbo_frame_tag "invited_friends" do %>
+                    <%= link_to "View friends who are invited", invited_friends_path(@order) %>
+                <% end %>
             </div>
         </div>
     </div>
-        <%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %>
+        <% if @order.status == "waiting" %>
+            <%= turbo_frame_tag "new_item", src: new_order_item_path(@order), target: "_top" %>
+        <% end %>
 
         <%= turbo_stream_from @order %>
 

@@ -116,6 +116,10 @@ list-style-type: none;
   text-decoration:none;
 }
 
+.custom-input{
+  width: 100%  !important;
+}
+
 
 
 
