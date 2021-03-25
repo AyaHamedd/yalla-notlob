@@ -1,4 +1,8 @@
 class FriendsController < ApplicationController
+    def index
+        redirect_to '/addFriend'
+    end
+
     def add
         @user = User.find(current_user.id)
         @friends = @user.users

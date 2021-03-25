@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   def index
+    redirect_to '/addGroup'
   end
 
   def add
