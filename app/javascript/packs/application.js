@@ -6,19 +6,16 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-//= require jquery.turbolinks
+
 
 import "@hotwired/turbo-rails";
 import * as ActiveStorage from "@rails/activestorage";
 import Rails from "@rails/ujs";
-// import "bootstrap";
 import "channels";
 import "controllers";
 
 Rails.start();
 ActiveStorage.start();
-
-
 
 class Notifications {
   constructor() {
@@ -27,15 +24,6 @@ class Notifications {
     this.notifications = $("[data-behavior='notifications']");
     this.unread_count = 0;
     this.firstFetch = 1;
-    
-    
-    $("#view-all").on( "click",function () {
-      $(".popup").show();
-    });
-    
-    $("#close, .shadow").on( "click",function () {
-      $(".popup").hide();
-    });
 
     if (this.notifications.length > 0) {
       $("[data-behavior='notifications-link']").on("click", this.handleClick);
@@ -74,11 +62,6 @@ class Notifications {
         $("#notify").prepend(
           `<li class='dropdown-item'> ${notification.actor} ${notification.text} <a href='${notification.url}'>${notification.link}</a></li>`
         );
-        if ($("#all-notify li").length) {
-          $("#all-notify").prepend(
-            `<li> ${notification.actor} ${notification.text} <a href='${notification.url}'>${notification.link}</a></li>`
-          );
-        }
         count += 1;
       });
       this.unread_count = count;
@@ -91,7 +74,8 @@ class Notifications {
       });
     }
 
-    if (data["allNotifications"].length > 0 && this.firstFetch) {
+    if (data["allNotifications"].length > 0){
+      $('#all-notify').empty();
       data["allNotifications"].forEach(function (notification) {
         $("#all-notify").prepend(
           `<li> ${notification.actor} ${notification.text}<a href='${notification.url}'>${notification.link}</a></li>`
@@ -102,28 +86,5 @@ class Notifications {
   }
 }
 
-$(document).ready(function(){
-  $("#view-all").on( "click",function () {
-    $(".popup").show();
-  });
-  
-  $("#close, .shadow").on( "click",function () {
-    $(".popup").hide();
-  });
-  new Notifications();
-}
-);
-
-// $(document).on("turbolinks:change", function () {
-//   $("#view-all").on( "click",function () {
-//     console.log("ff");
-//     $(".popup").show();
-//   });
-// });
-
-// document.addEventListener('turbolinks:load', function () {
-//   const viewAll = document.getElementById('view-all');
-//   viewAll.addEventListener('click', function () {
-//     return $(".popup").show();
-//   }, false);
-// });
+jQuery(function(){new Notifications();
+});
