@@ -67,6 +67,7 @@
                                         <%# <%= current_user.full_name%>
                                         <a class="nav-link" href="#">Username</a>
                                     </li>
+                                    <img src="assets/avatar.jpeg" style="border-radius: 50%;" width="40" height="40" alt="">
                                 <% end %>
                                 <li class="nav-item mt-1">
                                     <%= link_to 'Logout', destroy_user_session_path, class: "nav-link", method: :delete if user_signed_in? %>
