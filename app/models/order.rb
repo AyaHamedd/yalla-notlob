@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+    enum order_type: { breakfast: 0, lunch: 1, dinner: 2 }
     belongs_to :user
 
     has_many :items
