@@ -2,10 +2,27 @@
     <div class="field row justify-content-center mt-5">
         <div class="col-md-4">
             <%= form.label :order_type, class: "form-label" %>
-            <%= form.text_field :order_type, class: "form-control"%> <br>
+            <%= form.select :order_type, options_for_select(Order.order_types.map {|k, v | [k.humanize.capitalize, k]}), {} ,{:class => "form-select"} %>
             <% order.errors.full_messages_for(:order_type).each do |message| %>
                 <p><%= message %> </p>
             <% end %>
+        </div>
+        <div class="col-md-4">
+            <%= form.label :restaurant_name, class: "form-label" %>
+            <%= form.text_field :restaurant_name, class: "form-control"%> <br>
+            <% order.errors.full_messages_for(:restaurant_name).each do |message| %>
+                <p><%= message %> </p>
+            <% end %>
+        </div>
+    </div>
+    <div class="field row justify-content-center mt-5">
+        <div class="col-md-4">
+            <%= form.label :invited_friends, class: "form-label" %>
+            <%= form.select :invited_friends, options_for_select(friends.map { |value| [value.email + " (" + value.full_name + ")", value.id]}) , {} ,{:class => "form-select", :multiple => true} %>
+        </div>
+        <div class="col-md-4">
+            <%= form.label :invited_groups, class: "form-label" %>
+            <%= form.select :invited_groups, options_for_select(groups.map { |value| [value.name, value.id]}) , {} ,{:class => "form-select", :multiple => true} %>
         </div>
     </div>
     <div class="row justify-content-center">
