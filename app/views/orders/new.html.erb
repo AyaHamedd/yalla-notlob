@@ -4,7 +4,15 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <%= render "order_form", order: @order %> 
+            <% friends_arr = [] %>
+            <% for friend in current_user.users %>
+                <% friends_arr.push(friend.users) %>
+            <% end %>
+            <% groups_arr = [] %>
+            <% for group in current_user.groups %>
+                <% groups_arr.push(group) %>
+            <% end %>
+            <%= render "order_form", order: @order, friends: friends_arr, groups: groups_arr %> 
         </div>
     </div>
 </div>
