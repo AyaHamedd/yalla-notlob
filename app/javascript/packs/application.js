@@ -78,7 +78,7 @@ class Notifications {
       $('#all-notify').empty();
       data["allNotifications"].forEach(function (notification) {
         $("#all-notify").prepend(
-          `<li> ${notification.actor} ${notification.text}<a href='${notification.url}'>${notification.link}</a></li>`
+          `<li> <p>${notification.actor} ${notification.text} </p> <a href='${notification.url}'>${notification.link}</a></li>`
         );
       });
     }
