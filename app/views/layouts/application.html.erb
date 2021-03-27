@@ -104,5 +104,60 @@
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    
+        <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '270300574553073',
+            cookie     : true,
+            xfbml      : true,
+            version    : '10.0'
+            });
+            
+            FB.AppEvents.logPageView();   
+            
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        
+        jQuery(function() {
+    return $.ajax({
+        url: 'https://apis.google.com/js/client:plus.js?onload=gpAsyncInit',
+        dataType: 'script',
+        cache: true
+    });
+    });
+
+    window.gpAsyncInit = function() {
+    $('.googleplus-login').click(function(e) {
+        e.preventDefault();
+        gapi.auth.authorize({
+        immediate: true,
+        response_type: 'code',
+        cookie_policy: 'single_host_origin',
+        client_id: '000000000000.apps.googleusercontent.com',
+        scope: 'email profile'
+        }, function(response) {
+        if (response && !response.error) {
+            // google authentication succeed, now post data to server and handle data securely
+            jQuery.ajax({type: 'POST', url: "/auth/google_oauth2/callback", dataType: 'json', data: response,
+            success: function(json) {
+                // response from server
+            }
+            });
+        } else {
+            // google authentication failed
+        }
+        });
+    });
+    };
+        </script>
+        
     </body>
 </html>

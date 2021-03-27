@@ -21,7 +21,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-gem 'devise'
+gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
 gem 'activestorage'
 gem 'hotwire-rails'
 gem 'stimulus-rails'
@@ -60,3 +60,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 gem 'jquery-turbolinks'
+gem 'omniauth', '~>1.9'
+gem 'omniauth-facebook', '~> 1.6.0'
+gem 'pry-rails', :group => :development
+gem 'dotenv-rails'
+# gem 'omniauth-rails_csrf_protection'
+
+gem 'omniauth-google-oauth2'
