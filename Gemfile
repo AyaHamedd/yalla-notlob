@@ -65,5 +65,5 @@ gem 'omniauth-facebook', '~> 1.6.0'
 gem 'pry-rails', :group => :development
 gem 'dotenv-rails'
 # gem 'omniauth-rails_csrf_protection'
-gem "sentry-ruby"
-gem "sentry-rails"
+
+gem 'omniauth-google-oauth2'

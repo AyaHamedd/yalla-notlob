@@ -153,6 +153,11 @@ GEM
       rack (>= 1.6.2, < 3)
     omniauth-facebook (1.6.0)
       omniauth-oauth2 (~> 1.1)
+    omniauth-google-oauth2 (0.8.2)
+      jwt (>= 2.0)
+      oauth2 (~> 1.1)
+      omniauth (~> 1.1)
+      omniauth-oauth2 (>= 1.6)
     omniauth-oauth2 (1.7.1)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
@@ -226,16 +231,6 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
-    sentry-rails (4.3.3)
-      railties (>= 5.0)
-      sentry-ruby-core (~> 4.3.0)
-    sentry-ruby (4.3.1)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      faraday (>= 1.0)
-      sentry-ruby-core (= 4.3.1)
-    sentry-ruby-core (4.3.1)
-      concurrent-ruby
-      faraday
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -298,6 +293,7 @@ DEPENDENCIES
   listen (~> 3.3)
   omniauth (~> 1.9)
   omniauth-facebook (~> 1.6.0)
+  omniauth-google-oauth2
   pry-rails
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
@@ -305,8 +301,6 @@ DEPENDENCIES
   redis (~> 4.0)
   sass-rails (>= 6)
   selenium-webdriver
-  sentry-rails
-  sentry-ruby
   spring
   sqlite3 (~> 1.4)
   stimulus-rails
