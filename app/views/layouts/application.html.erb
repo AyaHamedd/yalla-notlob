@@ -65,7 +65,7 @@
                                     <li
                                         class="nav-item mt-1">
                                         <%# <%= current_user.full_name%>
-                                        <a class="nav-link" href="#">Username</a>
+                                        <a class="nav-link" href="<%=edit_user_registration_path(current_user)%>"><%= current_user.full_name%></a>
                                     </li>
                                     <img src="assets/avatar.jpeg" style="border-radius: 50%;" width="40" height="40" alt="">
                                 <% end %>
