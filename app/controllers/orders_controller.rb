@@ -19,6 +19,30 @@ class OrdersController < ApplicationController
     end
 
     def create
+        @order = Order.create(order_params)
+        users_in_group = []
+        groups = get_invited_groups_param[:invited_groups]
+        for group in groups[1..-1]
+            group_id = group.to_i
+            g = Group.find(group_id)
+            for user in g.users
+                users_in_group.push(user)
+                @order.invited_users<<user
+            end
+        end
+
+        friends = get_invited_friends_param[:invited_friends]
+
+        for friend in friends[1..-1]
+            friend_id = friend.to_i
+            user = User.find(friend_id)
+            unless users_in_group.include?(user) then @order.invited_users<<user end
+        end
+
+        respond_to do |format|
+            # format.turbo_stream
+            format.html { redirect_to @order }
+        end
     end
 
     def edit
@@ -65,5 +89,21 @@ class OrdersController < ApplicationController
         @order = Order.find(params[:id])
         @invited = @order.invited_users
         render :invited_friends
+    end
+
+    private
+    def order_params
+        params.require(:order).permit(:order_type, :restaurant_name, :user_id).merge!(
+            user_id: current_user.id,
+            status: "waiting"
+        )
+    end
+
+    def get_invited_friends_param
+        params.require(:order).permit(invited_friends:[])
+    end
+
+    def get_invited_groups_param
+        params.require(:order).permit(invited_groups:[])
     end
 end
