@@ -30,7 +30,11 @@
                             <div class="panel-container panel-body" style="overflow-y: scroll;overflow-x: hidden; max-height: 240px;">
                                 <ul>
                                     <% @activities.each do |activity| %>
-                                        <li><%= activity.friend_id %></li>
+                                        <li><%= activity.full_name %>
+                                            has created an Order for<%= activity.order_type %>
+                                            from
+                                            <%= activity.restaurant_name %>
+                                        </li>
                                     <% end %>
                                 </ul>
                             </div>
