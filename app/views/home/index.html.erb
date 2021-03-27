@@ -1,5 +1,5 @@
 <div class="container flex-grow-1">
-    <h1 class="text-center fw-bold">Gathering Orders is now easy !</h1>
+    <h1 class="text-center fw-bold">Collecting Orders is now easy !</h1>
     <div class="row mt-0">
         <div class="col-6">
             <div class="panel panel-default">
@@ -12,7 +12,7 @@
                                     <% @orders.each do |order| %>
                                         <a href=<%=order_path(order)%>><%= order.order_type%>
                                             On
-                                            <%= order.created_at%></a>
+                                            <%= order.created_at.to_s.split[0]%></a>
                                     <% end %>
                                 </ul>
                             </div>
@@ -28,7 +28,11 @@
                         <h3 style="text-align:center">Recent Activity</h3>
                         <div class="panel panel-default">
                             <div class="panel-container panel-body" style="overflow-y: scroll;overflow-x: hidden; max-height: 240px;">
-                                <ul></ul>
+                                <ul>
+                                    <% @activities.each do |activity| %>
+                                        <p><%= activity.friend_id %></p>
+                                    <% end %>
+                                </ul>
                             </div>
                         </div>
                     </fieldset>
