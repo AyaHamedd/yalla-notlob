@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get "/orders/:order_id/finish", to: "orders#finish_order", as: 'finish_order'
   get "/orders/:order_id/cancel", to: "orders#cancel_order", as: 'cancel_order'
   get "/orders/closed_order", to: "orders#closed_order", as: 'closed_order'
+  get "/orders/:order_id/joinOrder", to: "orders#join_order", as: 'join_order'
+  get "/orders/:order_id/viewMenu", to: "orders#view_restaurant_menu", as: 'view_restaurant_menu'
 
   resources :orders do
     resources :items

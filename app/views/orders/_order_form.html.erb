@@ -25,6 +25,12 @@
             <%= form.select :invited_groups, options_for_select(groups.map { |value| [value.name, value.id]}) , {} ,{:class => "form-select", :multiple => true} %>
         </div>
     </div>
+    <div class="field row justify-content-center mt-5">
+        <div class="col-md-4">
+            <%= form.label :restaurant_menu, class: "form-label" %>
+            <%= form.file_field :restaurant_menu, class: "form-control"%>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-2">
             <%= form.submit "Add",class: "btn btn-primary", data: { disable_with: false } %>
