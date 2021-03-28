@@ -4,12 +4,16 @@ class OrdersController < ApplicationController
     end
 
     def show
-        @order = Order.find(params[:id])
-        if @order.user_id == current_user.id
-            render :show
-        elsif @order.users.exists?(current_user.id)
-            render :show
-        else
+        begin
+            @order = Order.find(params[:id])
+            if @order.user_id == current_user.id
+                render :show
+            elsif @order.users.exists?(current_user.id)
+                render :show
+            else
+                render :order_not_found
+            end
+        rescue => exception
             render :order_not_found
         end
     end
@@ -125,6 +129,11 @@ class OrdersController < ApplicationController
     def view_restaurant_menu
         @order = Order.find(params[:order_id])
         render :restaurant_menu_for_order
+    end
+
+    def view_joined_orders
+        @orders = current_user.orders
+        render :view_joined_orders
     end
 
     private
