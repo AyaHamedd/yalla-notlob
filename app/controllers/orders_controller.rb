@@ -113,16 +113,20 @@ class OrdersController < ApplicationController
     end
 
     def join_order
-        @order = Order.find(params[:order_id])
-        @invited_user = @order.invited_users.find(current_user.id)
-        @order.invited_users.delete(@invited_user)
+        begin
+            @order = Order.find(params[:order_id])
+            @invited_user = @order.invited_users.find(current_user.id)
+            @order.invited_users.delete(@invited_user)
 
-        @order.users<<current_user
-        @order.save
+            @order.users<<current_user
+            @order.save
 
-        respond_to do |format|
-            format.turbo_stream { render turbo_stream: turbo_stream.replace(@order, partial: "orders/order", locals: { order: @order}) }
-            format.html { redirect_to @order }
+            respond_to do |format|
+                format.turbo_stream { render turbo_stream: turbo_stream.replace(@order, partial: "orders/order", locals: { order: @order}) }
+                format.html { redirect_to @order }
+            end
+        rescue => exception
+            render :order_not_found
         end
     end
 
