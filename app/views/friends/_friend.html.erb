@@ -1,5 +1,6 @@
 <% if !friend.nil? %>
-    <div class="single-friend col-md-12">
+    <div class="single-friend col-md-4">
+        <%= image_tag friend.users.avatar_thumbnail , style: 'height:70px;width:70px;' %>
         <p style="color:#000;display:inline-block">
             <%= friend.users.email %>
         </p>
