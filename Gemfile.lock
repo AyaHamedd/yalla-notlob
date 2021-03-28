@@ -300,6 +300,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-turbolinks
   listen (~> 3.3)
+  mini_magick
   omniauth (~> 1.9)
   omniauth-facebook (~> 1.6.0)
   omniauth-google-oauth2

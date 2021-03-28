@@ -67,3 +67,4 @@ gem 'dotenv-rails'
 # gem 'omniauth-rails_csrf_protection'
 
 gem 'omniauth-google-oauth2'
+gem "mini_magick"

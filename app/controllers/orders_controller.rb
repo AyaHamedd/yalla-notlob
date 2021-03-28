@@ -20,13 +20,13 @@ class OrdersController < ApplicationController
 
     def create
         @order = Order.create(order_params)
-        users_in_group = []
+        users_invited = []
         groups = get_invited_groups_param[:invited_groups]
         for group in groups[1..-1]
             group_id = group.to_i
             g = Group.find(group_id)
             for user in g.users
-                users_in_group.push(user)
+                users_invited.push(user)
                 @order.invited_users<<user
             end
         end
@@ -36,7 +36,16 @@ class OrdersController < ApplicationController
         for friend in friends[1..-1]
             friend_id = friend.to_i
             user = User.find(friend_id)
-            unless users_in_group.include?(user) then @order.invited_users<<user end
+            unless
+                users_invited.include?(user)
+            then
+                @order.invited_users<<user
+                users_invited.push(user)
+            end
+        end
+
+        for invited_user in users_invited
+            @notification = Notification.create(actor_id: @order.user_id, recipient_id: invited_user.id, action: "invited", order_id: @order.id)
         end
 
         respond_to do |format|
@@ -91,9 +100,28 @@ class OrdersController < ApplicationController
         render :invited_friends
     end
 
+    def join_order
+        @order = Order.find(params[:order_id])
+        @invited_user = @order.invited_users.find(current_user.id)
+        @order.invited_users.delete(@invited_user)
+
+        @order.users<<current_user
+        @order.save
+
+        respond_to do |format|
+            format.turbo_stream { render turbo_stream: turbo_stream.replace(@order, partial: "orders/order", locals: { order: @order}) }
+            format.html { redirect_to @order }
+        end
+    end
+
+    def view_restaurant_menu
+        @order = Order.find(params[:order_id])
+        render :restaurant_menu_for_order
+    end
+
     private
     def order_params
-        params.require(:order).permit(:order_type, :restaurant_name, :user_id).merge!(
+        params.require(:order).permit(:order_type, :restaurant_name, :user_id, :restaurant_menu).merge!(
             user_id: current_user.id,
             status: "waiting"
         )

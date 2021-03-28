@@ -4,9 +4,12 @@
     </div>
     <div class="container-fluid">
         <div class="">
-            <h3 class="">Order created by 
-                <%= @order.user.full_name %> 
+            <h3 class="">Order created by
+                <%= @order.user.full_name %>
             </h3>
+        </div>
+        <div>
+            <%= link_to "View restaurant menu", view_restaurant_menu_path(@order) %>
         </div>
         <div class="row">
             <div class="col-md-6">
