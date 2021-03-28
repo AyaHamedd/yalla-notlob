@@ -1,3 +1,7 @@
+<div style="text-align: center;margin: auto;
+  width: 50%;
+  border: 3px solid purple;
+  padding: 10px;">
 <h2>Edit
     <%= resource_name.to_s.humanize %></h2>
 
@@ -51,10 +55,7 @@
         <%= f.submit "Update" %>
     </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy?
-    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
 
 <%= link_to "Back", :back %>
+</div>
