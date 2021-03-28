@@ -10,7 +10,7 @@
                             <div class="panel-container panel-body" style="overflow-y: scroll;overflow-x: hidden; max-height: 240px;">
                                 <ul>
                                     <% @orders.each do |order| %>
-                                        <a class="line" href=<%=order_path(order)%>><%= order.order_type%>
+                                        <a class="line" href=<%=order_path(order)%>><%= order.order_type.capitalize.to_s%>
                                             On
                                             <%= order.created_at.to_s.split[0]%></a>
                                     <% end %>
