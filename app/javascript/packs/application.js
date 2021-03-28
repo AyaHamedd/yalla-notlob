@@ -19,18 +19,15 @@ ActiveStorage.start();
 
 class Notifications {
   constructor() {
-    this.handleClick = this.handleClick.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
     this.notifications = $("[data-behavior='notifications']");
-    this.unread_count = 0;
-    this.firstFetch = 1;
 
     if (this.notifications.length > 0) {
       $("[data-behavior='notifications-link']").on("click", this.handleClick);
       this.getNewNotifications();
       setInterval(() => {
         return this.getNewNotifications();
-      }, 5000);
+      }, 2000);
     }
   }
 
@@ -43,21 +40,10 @@ class Notifications {
     });
   }
 
-  handleClick(e) {
-    this.unread_count = 0;
-    $.ajax({
-      url: "/notifications/mark_as_read",
-      dataType: "JSON",
-      method: "POST",
-      success() {
-        $("#unread-count").text(" ");
-      },
-    });
-  }
-
   handleSuccess(data) {
-    let count = this.unread_count;
+    let count = 0;
     if (data["newNotifications"].length > 0) {
+      $('#notify').children().not('.drop-footer').remove();
       data["newNotifications"].forEach(function (notification) {
         $("#notify").prepend(
           `<li class='dropdown-item'> ${notification.actor} ${notification.text} <a href='${notification.url}'>${notification.link}</a></li>`
@@ -66,12 +52,6 @@ class Notifications {
       });
       this.unread_count = count;
       $("#unread-count").text(this.unread_count);
-
-      $.ajax({
-        url: "/notifications/mark_as_recieved",
-        dataType: "JSON",
-        method: "POST",
-      });
     }
 
     if (data["allNotifications"].length > 0){
@@ -82,7 +62,6 @@ class Notifications {
         );
       });
     }
-    this.firstFetch = 0;
   }
 }
 
