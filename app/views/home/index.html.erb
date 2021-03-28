@@ -31,7 +31,7 @@
                                 <ul>
                                     <% @activities.each do |activity| %>
                                         <li class="line"><%= activity.full_name %>
-                                            has created an Order for<%= activity.order_type %>
+                                            has created an Order for <%= activity.order_type %>
                                             from
                                             <%= activity.restaurant_name %>.
                                         </li>
