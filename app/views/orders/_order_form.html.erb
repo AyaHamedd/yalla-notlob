@@ -1,3 +1,11 @@
+<% friends_arr = [] %>
+<% for friend in current_user.users %>
+    <% friends_arr.push(friend.users) %>
+<% end %>
+<% groups_arr = [] %>
+<% for group in current_user.groups %>
+    <% groups_arr.push(group) %>
+<% end %>
 <%= form_with(model: order, id: dom_id(order)) do |form| %>
     <div class="field row justify-content-center mt-5">
         <div class="col-md-4">
@@ -18,17 +26,20 @@
     <div class="field row justify-content-center mt-5">
         <div class="col-md-4">
             <%= form.label :invited_friends, class: "form-label" %>
-            <%= form.select :invited_friends, options_for_select(friends.map { |value| [value.email + " (" + value.full_name + ")", value.id]}) , {} ,{:class => "form-select", :multiple => true} %>
+            <%= form.select :invited_friends, options_for_select(friends_arr.map { |value| [value.email + " (" + value.full_name + ")", value.id]}) , {} ,{:class => "form-select", :multiple => true} %>
+            <% order.errors.full_messages_for(:invited_friends).each do |message| %>
+                <p><%= message %> </p>
+            <% end %>
         </div>
         <div class="col-md-4">
             <%= form.label :invited_groups, class: "form-label" %>
-            <%= form.select :invited_groups, options_for_select(groups.map { |value| [value.name, value.id]}) , {} ,{:class => "form-select", :multiple => true} %>
+            <%= form.select :invited_groups, options_for_select(groups_arr.map { |value| [value.name, value.id]}) , {} ,{:class => "form-select", :multiple => true} %>
         </div>
     </div>
     <div class="field row justify-content-center mt-5">
         <div class="col-md-4">
             <%= form.label :restaurant_menu, class: "form-label" %>
-            <%= form.file_field :restaurant_menu, class: "form-control"%>
+            <%= form.file_field :restaurant_menu, class: "form-control", required: true%>
         </div>
     </div>
     <div class="row justify-content-center">
