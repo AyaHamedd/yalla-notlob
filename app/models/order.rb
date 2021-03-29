@@ -8,6 +8,16 @@ class Order < ApplicationRecord
 
     has_one_attached :restaurant_menu
 
+    validates :order_type, presence: true
+    validates :restaurant_name, presence: true
+    validate :has_one_invited_user_at_least
+
+    def has_one_invited_user_at_least
+        if status == "waiting" and invited_users.empty?
+        errors.add(:invited_friends, "has to include atleast one friend or group.")
+        end
+    end
+
     # broadcasts_to ->(order) { "new_item", partial: "items/form" }
     after_update_commit -> {broadcast_replace_to "orders_index" }
 end

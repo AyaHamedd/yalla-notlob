@@ -48,14 +48,14 @@
                                 </li>
                                 <% if user_signed_in? %>
                                     <li class="nav-item btn-group mt-1" data-behavior="notifications" data-notifications='<%= render template: "notifications/index", formats: [:json] %>'>
-                                        <button class="btn-secondary " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-behavior="notifications-link">
+                                        <button onclick="mark_read()" class="btn-secondary " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-behavior="notifications-link">
 
                                             <span id="unread-count"></span>
                                             <i class="fa fa-bell"></i>
                                         </button>
                                         <div id="notify" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
-                                            <div class="dropdown-divider"></div>
-                                            <button id="view-all" class="dropdown-item" onclick="showPopup()">View All Notifications</button>
+                                            <div class="drop-footer dropdown-divider"></div>
+                                            <button id="view-all" class="drop-footer dropdown-item" onclick="showPopup()">View All Notifications</button>
                                         </div>
                                     </li>
                                     <li class="nav-item mt-1">
@@ -91,14 +91,11 @@
             <p class="alert"><%= alert %></p>
             <%= yield %>
 
-            <%# <footer class="">
-                <p class="text-center mt-2">Aya.Heba.Leena.Sarah©</p>
-            </footer> %>
             <footer class="bg-dark text-center text-white">
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                        Aya.Heba.Leena.Sarah©
-            </div>
-            </footer> 
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                    Aya.Heba.Leena.Sarah©
+                </div>
+            </footer>
         </div>
         <script>
             function showPopup() {
@@ -113,7 +110,7 @@
         <script>
         window.fbAsyncInit = function() {
             FB.init({
-            appId      : '891073811437908',
+            appId      : '450066346232139',
             cookie     : true,
             xfbml      : true,
             version    : 'v10.0'
@@ -131,7 +128,17 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        </script>
-        
+
+            function mark_read() {
+                console.log("Ssss");
+                $.ajax({
+                    url: "/notifications/mark_as_read",
+                    dataType: "JSON",
+                    method: "POST",
+                    success() {
+                        $("#unread-count").text(" ");
+                    }
+                });
+            }
     </body>
 </html>

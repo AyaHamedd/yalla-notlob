@@ -19,7 +19,7 @@ class User < ApplicationRecord
   after_commit :add_default_avatar, on: %i[create update]
 
   def self.from_omniauth(auth)
-    abort auth.inspect
+    # abort auth.inspect
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
     user.email = auth.info.email
     user.password = Devise.friendly_token[0, 20]

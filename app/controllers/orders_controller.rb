@@ -4,12 +4,16 @@ class OrdersController < ApplicationController
     end
 
     def show
-        @order = Order.find(params[:id])
-        if @order.user_id == current_user.id
-            render :show
-        elsif @order.users.exists?(current_user.id)
-            render :show
-        else
+        begin
+            @order = Order.find(params[:id])
+            if @order.user_id == current_user.id
+                render :show
+            elsif @order.users.exists?(current_user.id)
+                render :show
+            else
+                render :order_not_found
+            end
+        rescue => exception
             render :order_not_found
         end
     end
@@ -19,9 +23,11 @@ class OrdersController < ApplicationController
     end
 
     def create
-        @order = Order.create(order_params)
-        users_invited = []
+        friends = get_invited_friends_param[:invited_friends]
         groups = get_invited_groups_param[:invited_groups]
+
+        @order = Order.new(order_params)
+        users_invited = []
         for group in groups[1..-1]
             group_id = group.to_i
             g = Group.find(group_id)
@@ -30,8 +36,6 @@ class OrdersController < ApplicationController
                 @order.invited_users<<user
             end
         end
-
-        friends = get_invited_friends_param[:invited_friends]
 
         for friend in friends[1..-1]
             friend_id = friend.to_i
@@ -44,13 +48,21 @@ class OrdersController < ApplicationController
             end
         end
 
-        for invited_user in users_invited
-            @notification = Notification.create(actor_id: @order.user_id, recipient_id: invited_user.id, action: "invited", order_id: @order.id)
-        end
+        if @order.save
+            for invited_user in users_invited
+                @notification = Notification.create(actor_id: @order.user_id, recipient_id: invited_user.id, action: "invited", order_id: @order.id)
+            end
 
-        respond_to do |format|
-            # format.turbo_stream
-            format.html { redirect_to @order }
+            respond_to do |format|
+                # format.turbo_stream
+                format.html { redirect_to @order }
+            end
+        else
+            respond_to do |format|
+                format.turbo_stream { render turbo_stream: turbo_stream.replace(@order, partial: "orders/order_form", locals: { order: @order}) }
+                format.html { render :new }
+                # format.json { render json: @item.errors, status: unprocessable_entity }
+            end
         end
     end
 
@@ -101,22 +113,31 @@ class OrdersController < ApplicationController
     end
 
     def join_order
-        @order = Order.find(params[:order_id])
-        @invited_user = @order.invited_users.find(current_user.id)
-        @order.invited_users.delete(@invited_user)
+        begin
+            @order = Order.find(params[:order_id])
+            @invited_user = @order.invited_users.find(current_user.id)
+            @order.invited_users.delete(@invited_user)
 
-        @order.users<<current_user
-        @order.save
+            @order.users<<current_user
+            @order.save
 
-        respond_to do |format|
-            format.turbo_stream { render turbo_stream: turbo_stream.replace(@order, partial: "orders/order", locals: { order: @order}) }
-            format.html { redirect_to @order }
+            respond_to do |format|
+                format.turbo_stream { render turbo_stream: turbo_stream.replace(@order, partial: "orders/order", locals: { order: @order}) }
+                format.html { redirect_to @order }
+            end
+        rescue => exception
+            render :order_not_found
         end
     end
 
     def view_restaurant_menu
         @order = Order.find(params[:order_id])
         render :restaurant_menu_for_order
+    end
+
+    def view_joined_orders
+        @orders = current_user.orders
+        render :view_joined_orders
     end
 
     private

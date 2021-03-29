@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @orders = Order.where(user: current_user);
+    @orders = Order.where(user: current_user).order('"orders"."created_at" desc');;
     @user = User.find(current_user.id)
     @activities = Friend.joins('INNER JOIN "orders" ON "orders"."user_id" = "friends"."friend_id"')
     .joins('INNER JOIN "users" ON "users"."id" = "friends"."friend_id"')
