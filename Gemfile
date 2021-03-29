@@ -58,13 +58,12 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-
 gem 'jquery-turbolinks'
 gem 'omniauth', '~>1.9'
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'pry-rails', :group => :development
 gem 'dotenv-rails'
-# gem 'omniauth-rails_csrf_protection'
+gem 'omniauth-rails_csrf_protection'
 
 gem 'omniauth-google-oauth2'
 gem "mini_magick"

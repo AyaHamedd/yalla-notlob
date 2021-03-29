@@ -342,6 +342,12 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
-  config.omniauth :facebook, "270300574553073", "5a0c7832e95f15ae071c7be81c9e4c06"
-  config.omniauth :google_oauth2, 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', access_type: "online"
+  config.omniauth :facebook, "891073811437908", "ad83d5a8ed1f887a3de7ff1263bf1b30", token_params: { parse: :json }, :scope => "email"
+  # config.omniauth :facebook, Rails.application.credentials.facebook["155471856454955"], Rails.application.credentials.facebook["c6d4359de3fc456d70487ff65ac87d3c"], token_params: { parse: :json }
+  # config.omniauth :facebook, "155471856454955", "c6d4359de3fc456d70487ff65ac87d3c"
+  # config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], access_type: "online"
+  # google_client_id = Rails.application.credentials.google_oauth2[:client_id]
+  # google_client_secret = Rails.application.credentials.google_oauth2[:client_secret]
+  # config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope: 'userinfo.email,userinfo.profile', skip_jwt: true
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRT"], access_type: "online"
 end
